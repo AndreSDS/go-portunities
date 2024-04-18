@@ -2,7 +2,10 @@ module github.com/andresds/go-portunities
 
 go 1.21.3
 
-require github.com/gin-gonic/gin v1.9.1
+require (
+	github.com/gin-gonic/gin v1.9.1
+	github.com/mattn/go-sqlite3 v1.14.22
+)
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect
