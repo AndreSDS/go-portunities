@@ -9,14 +9,14 @@ import (
 	"context"
 )
 
-const createAuthor = `-- name: CreateAuthor :one
+const createOpenning = `-- name: CreateOpenning :one
 INSERT INTO
     opennings (role, company, location, remote, link, salary)
 VALUES
     (?, ?, ?, ?, ?, ?) RETURNING id, role, company, location, remote, link, salary
 `
 
-type CreateAuthorParams struct {
+type CreateOpenningParams struct {
 	Role     string
 	Company  string
 	Location string
@@ -25,8 +25,8 @@ type CreateAuthorParams struct {
 	Salary   int64
 }
 
-func (q *Queries) CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Openning, error) {
-	row := q.db.QueryRowContext(ctx, createAuthor,
+func (q *Queries) CreateOpenning(ctx context.Context, arg CreateOpenningParams) (Openning, error) {
+	row := q.db.QueryRowContext(ctx, createOpenning,
 		arg.Role,
 		arg.Company,
 		arg.Location,
@@ -47,18 +47,18 @@ func (q *Queries) CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Ope
 	return i, err
 }
 
-const deleteAuthor = `-- name: DeleteAuthor :exec
+const deleteOpenning = `-- name: DeleteOpenning :exec
 DELETE FROM opennings
 WHERE
     id = ?
 `
 
-func (q *Queries) DeleteAuthor(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteAuthor, id)
+func (q *Queries) DeleteOpenning(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteOpenning, id)
 	return err
 }
 
-const getAuthor = `-- name: GetAuthor :one
+const getOpenning = `-- name: GetOpenning :one
 SELECT
     id, role, company, location, remote, link, salary
 FROM
@@ -69,8 +69,8 @@ LIMIT
     1
 `
 
-func (q *Queries) GetAuthor(ctx context.Context, id int64) (Openning, error) {
-	row := q.db.QueryRowContext(ctx, getAuthor, id)
+func (q *Queries) GetOpenning(ctx context.Context, id int64) (Openning, error) {
+	row := q.db.QueryRowContext(ctx, getOpenning, id)
 	var i Openning
 	err := row.Scan(
 		&i.ID,
@@ -84,7 +84,7 @@ func (q *Queries) GetAuthor(ctx context.Context, id int64) (Openning, error) {
 	return i, err
 }
 
-const listAuthors = `-- name: ListAuthors :many
+const listOpennings = `-- name: ListOpennings :many
 SELECT
     id, role, company, location, remote, link, salary
 FROM
@@ -93,8 +93,8 @@ ORDER BY
     company
 `
 
-func (q *Queries) ListAuthors(ctx context.Context) ([]Openning, error) {
-	rows, err := q.db.QueryContext(ctx, listAuthors)
+func (q *Queries) ListOpennings(ctx context.Context) ([]Openning, error) {
+	rows, err := q.db.QueryContext(ctx, listOpennings)
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func (q *Queries) ListAuthors(ctx context.Context) ([]Openning, error) {
 	return items, nil
 }
 
-const updateAuthor = `-- name: UpdateAuthor :exec
+const updateOpenning = `-- name: UpdateOpenning :exec
 UPDATE opennings
 SET
     role = ?,
@@ -137,7 +137,7 @@ WHERE
     id = ?
 `
 
-type UpdateAuthorParams struct {
+type UpdateOpenningParams struct {
 	Role     string
 	Company  string
 	Location string
@@ -147,8 +147,8 @@ type UpdateAuthorParams struct {
 	ID       int64
 }
 
-func (q *Queries) UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) error {
-	_, err := q.db.ExecContext(ctx, updateAuthor,
+func (q *Queries) UpdateOpenning(ctx context.Context, arg UpdateOpenningParams) error {
+	_, err := q.db.ExecContext(ctx, updateOpenning,
 		arg.Role,
 		arg.Company,
 		arg.Location,

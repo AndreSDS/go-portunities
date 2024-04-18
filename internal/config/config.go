@@ -1,22 +1,30 @@
 package config
 
 import (
-	"database/sql"
-	"errors"
-
-	_ "github.com/mattn/go-sqlite3"
+	database "github.com/andresds/go-portunities/internal/db"
 )
 
 var (
-	db     *sql.DB
+	db     *database.Queries
 	logger *Logger
 )
 
 func Init() error {
-	return errors.New("not implemented")
+	var err error
+
+	// initialize sqlite
+	db, err = InitializeSQLite()
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func GetLogger(p string) *Logger {
 	logger = NewLogger(p)
 	return logger
+}
+
+func GetSQLite() *database.Queries {
+	return db
 }

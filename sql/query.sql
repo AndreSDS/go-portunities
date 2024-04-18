@@ -1,4 +1,4 @@
--- name: GetAuthor :one
+-- name: GetOpenning :one
 SELECT
     *
 FROM
@@ -8,7 +8,7 @@ WHERE
 LIMIT
     1;
 
--- name: ListAuthors :many
+-- name: ListOpennings :many
 SELECT
     *
 FROM
@@ -16,13 +16,13 @@ FROM
 ORDER BY
     company;
 
--- name: CreateAuthor :one
+-- name: CreateOpenning :one
 INSERT INTO
     opennings (role, company, location, remote, link, salary)
 VALUES
     (?, ?, ?, ?, ?, ?) RETURNING *;
 
--- name: UpdateAuthor :exec
+-- name: UpdateOpenning :exec
 UPDATE opennings
 SET
     role = ?,
@@ -34,7 +34,7 @@ SET
 WHERE
     id = ?;
 
--- name: DeleteAuthor :exec
+-- name: DeleteOpenning :exec
 DELETE FROM opennings
 WHERE
     id = ?;

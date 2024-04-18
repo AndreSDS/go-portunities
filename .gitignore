@@ -1,0 +1,19 @@
+# Binaries
+
+*.exe
+*.dll
+*.so
+*.dylib
+
+
+# Test files
+
+*.test
+
+# Build files
+
+*.out
+
+# Database files
+
+.db
