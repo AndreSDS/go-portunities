@@ -1,15 +1,15 @@
 package config
 
 import (
-	"database/sql"
 	"os"
 
-	_ "github.com/mattn/go-sqlite3"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 
-	database "github.com/andresds/go-portunities/internal/db"
+	"github.com/andresds/go-portunities/schemas"
 )
 
-func InitializeSQLite() (*database.Queries, error) {
+func InitializeSQLite() (*gorm.DB, error) {
 	// initialize logger
 	logger := GetLogger("sqlite")
 
@@ -35,14 +35,20 @@ func InitializeSQLite() (*database.Queries, error) {
 	}
 
 	// connect to database
-	dbConn, err := sql.Open("sqlite3", dbPath)
+	db, err := gorm.Open(sqlite.Open(dbPath))
 	if err != nil {
 		logger.Errorf("Error connecting to database: %v", err.Error())
 		return nil, err
 	}
-	defer dbConn.Close()
 
-	db := database.New(dbConn)
+	// auto migrate the schema
+	err = db.AutoMigrate(&schemas.Openning{})
+	if err != nil {
+		logger.Errorf("Error migrating schema: %v", err.Error())
+		return nil, err
+	}
+
+	logger.Info("Connected to database")
 
 	return db, nil
 }

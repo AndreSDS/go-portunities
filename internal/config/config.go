@@ -1,21 +1,22 @@
 package config
 
 import (
-	database "github.com/andresds/go-portunities/internal/db"
+	"fmt"
+
+	"gorm.io/gorm"
 )
 
 var (
-	db     *database.Queries
+	db     *gorm.DB
 	logger *Logger
 )
 
 func Init() error {
 	var err error
-
 	// initialize sqlite
 	db, err = InitializeSQLite()
 	if err != nil {
-		return err
+		return fmt.Errorf("Error initializing SQLite: %v", err.Error())
 	}
 	return nil
 }
@@ -25,6 +26,6 @@ func GetLogger(p string) *Logger {
 	return logger
 }
 
-func GetSQLite() *database.Queries {
+func GetSQLite() *gorm.DB {
 	return db
 }

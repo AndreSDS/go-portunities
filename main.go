@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/andresds/go-portunities/internal/config"
-	"github.com/andresds/go-portunities/router"
+	router "github.com/andresds/go-portunities/router"
 )
 
 var (

@@ -2,4 +2,4 @@ package handler
 
 import "github.com/gin-gonic/gin"
 
-func listOpeningsHandler(c *gin.Context) {}
+func ListOpeningsHandler(c *gin.Context) {}
