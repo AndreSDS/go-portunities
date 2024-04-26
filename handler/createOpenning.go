@@ -37,5 +37,3 @@ func CreateOpenningHandler(ctx *gin.Context) {
 
 	models.SendSuccess(ctx, "create_openning", openning)
 }
-
-// https://www.youtube.com/watch?v=L6gk7FHBNkM 3:20
