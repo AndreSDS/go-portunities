@@ -2,7 +2,7 @@ package handler
 
 import "fmt"
 
-func errParamsIsRequired(
+func ErrParamsIsRequired(
 	name, typ string,
 ) error {
 	return fmt.Errorf("param: %s (type: %s) is required", name, typ)
@@ -23,24 +23,24 @@ func (r *OpenningRequest) Validate() error {
 	}
 
 	if r.Role == "" {
-		return errParamsIsRequired("role", "string")
+		return ErrParamsIsRequired("role", "string")
 	}
 	if r.Company == "" {
-		return errParamsIsRequired("company", "string")
+		return ErrParamsIsRequired("company", "string")
 	}
 	if r.Location == "" {
-		return errParamsIsRequired("location", "string")
+		return ErrParamsIsRequired("location", "string")
 	}
 	if r.Link == "" {
-		return errParamsIsRequired("link", "string")
+		return ErrParamsIsRequired("link", "string")
 	}
 	if r.Remote == nil {
-		return errParamsIsRequired("remote", "bool")
+		return ErrParamsIsRequired("remote", "bool")
 	}
 
 	// cheack if field salary exists
 	if r.Salary <= 0 {
-		return errParamsIsRequired("salary", "int")
+		return ErrParamsIsRequired("salary", "int")
 	}
 	return nil
 }
